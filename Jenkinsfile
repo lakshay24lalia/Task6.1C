@@ -26,8 +26,8 @@ pipeline {
                     attachmentsPattern: '/*.log'
                 }
             }
-            }
         }
+
         stage('Code Analysis') {
             steps {
                 echo "Analysing the Code using SonarQube"
@@ -65,6 +65,6 @@ pipeline {
             steps {
                 echo "Deployment to Production Environment using AWS CodeDeploy"
             }
-        }
     }
-
+    }
+}
