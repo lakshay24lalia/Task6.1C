@@ -16,14 +16,16 @@ pipeline {
             }
             post {
                 success {
-                    emailext body: "Unit and Integration Tests passed successfully.",
-                    subject: "Unit and Integration Tests - Success",
-                    attachmentsPattern: '/*.log'
+                    mail to: "lakshay24lalia@gmail.com"
+                    body: "Unit and Integration Tests passed successfully.",
+                    subject: "Test Stage - Success",
+                    emailext attachLog: true
+                        
                 }
                 failure {
-                    emailext body: "Unit and Integration Tests failed. Please check the logs for details.",
-                    subject: "Unit and Integration Tests - Failure",
-                    attachmentsPattern: '/*.log'
+                    mail to: "lakshay24lalia@gmail.com"
+                    body: "Unit and Integration Tests failed. Please check the logs for details.",
+                    subject: "Unit and Integration Tests - Failure"
                 }
             }
         }
