@@ -14,19 +14,18 @@ pipeline {
                 echo "Running integration tests using mvn integration-test"
                 
             }
-            post {
+             post {
                 success {
-                    mail to: "lakshay24lalia@gmail.com"
-                    body: "Unit and Integration Tests passed successfully.",
-                    subject: "Test Stage - Success",
-                    emailext attachLog: true
-                        
+                    emailext body: "Unit and Integration Tests passed successfully.",
+                    subject: "Unit and Integration Tests - Success",
+                    attachmentsPattern: '/*.log'
                 }
                 failure {
-                    mail to: "lakshay24lalia@gmail.com"
-                    body: "Unit and Integration Tests failed. Please check the logs for details.",
-                    subject: "Unit and Integration Tests - Failure"
+                    emailext body: "Unit and Integration Tests failed. Please check the logs for details.",
+                    subject: "Unit and Integration Tests - Failure",
+                    attachmentsPattern: '/*.log'
                 }
+            }
             }
         }
         stage('Code Analysis') {
@@ -38,6 +37,18 @@ pipeline {
             steps {
                echo "Security scan to identify any kind of vulnerablities"
               echo"Perform security scan using OWASP ZAP"
+            }
+              post {
+                success {
+                    emailext body: "Security Scan  passed successfully.",
+                    subject: "Security Scan  Tests - Success",
+                    attachmentsPattern: '/*.log'
+                }
+                failure {
+                    emailext body: "Security Scan failed. Please check the logs for details.",
+                    subject: "Security Scan  Tests - Failure",
+                    attachmentsPattern: '/*.log'
+                }
             }
         }
         stage('Deploy to Staging') {
