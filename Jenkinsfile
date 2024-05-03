@@ -40,6 +40,6 @@ pipeline {
             steps {
                 echo "Deployment to Production Environment using AWS CodeDeploy"
             }
-        }
-    }
+        }
+    }
 }
