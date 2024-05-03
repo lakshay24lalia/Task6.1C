@@ -14,6 +14,18 @@ pipeline {
                 echo "Running integration tests using mvn integration-test"
                 
             }
+            post {
+                success {
+                    emailext body: "Unit and Integration Tests passed successfully.",
+                    subject: "Unit and Integration Tests - Success",
+                    attachmentsPattern: '/*.log'
+                }
+                failure {
+                    emailext body: "Unit and Integration Tests failed. Please check the logs for details.",
+                    subject: "Unit and Integration Tests - Failure",
+                    attachmentsPattern: '/*.log'
+                }
+            }
         }
         stage('Code Analysis') {
             steps {
